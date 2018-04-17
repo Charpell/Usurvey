@@ -21,7 +21,7 @@ class Usurvey extends Component {
 
     this.state = {
       uid: uuid.v1(),
-      studentName: '',
+      studentName: 'John',
       answers: {
         answer1: '',
         answer2: '',
@@ -31,6 +31,13 @@ class Usurvey extends Component {
     }
   }
 
+  nameSubmit = () => {
+    var studentName = this.refs.name.value;
+    this.setState({ studentName }, function(){
+      console.log(this.state)
+    })
+  }
+
   render() {
     var studentName;
     var questions;
@@ -38,11 +45,19 @@ class Usurvey extends Component {
     if (this.state.studentName === '' && this.state.isSubmitted === false) {
       studentName = <div>
         <h1>Hey Student, please let us know your name: </h1>
-        <form>
-          <input type="text" placeholder="Enter your name" ref="name"/>
+       
+        <form onSubmit={this.nameSubmit}>
+          <input className="namy" type="text" placeholder="Enter your name" ref="name"/>
         </form>
-      </div>
+      </div>;
+      questions = ''
+
+    } else if (this.state.studentName !== '' && this.state.isSubmitted === false ) {
+      studentName = <h1>Welcome to U-Survey, {this.state.studentName}</h1>;
+        questions = <p>hey</p>
     }
+
+
     return(
       <div>
         {studentName}

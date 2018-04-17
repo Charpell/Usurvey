@@ -21,7 +21,7 @@ class Usurvey extends Component {
 
     this.state = {
       uid: uuid.v1(),
-      studentName: 'John',
+      studentName: '',
       answers: {
         answer1: '',
         answer2: '',
@@ -55,7 +55,11 @@ class Usurvey extends Component {
   }
 
   questionSubmit = () => {
-
+    firebase.database().ref('uSurvey/' + this.state.uid).set({
+      studentName: this.state.studentName,
+      answers: this.state.answers
+    });
+    this.setState({ isSubmitted: true })
   }
 
   render() {
